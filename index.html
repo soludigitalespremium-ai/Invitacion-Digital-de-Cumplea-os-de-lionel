@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitación de Cumpleaños - Lionel</title>
+    <!-- Importación de la fuente Montserrat -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            background: #f4f4f7;
+            font-family: 'Montserrat', sans-serif;
+            color: #333;
+        }
+        .invitacion {
+            max-width: 430px;
+            margin: auto;
+            background: #FFFFFF;
+            min-height: 100vh;
+            overflow: hidden;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            position: relative;
+        }
+
+        .portada {
+            height: 520px;
+            background: url("https://i.postimg.cc/8Czfc06t/La-Casade-Mickey-Mouse.webp") center/cover no-repeat;
+            background-color: #ddd; 
+            position: relative;
+            z-index: 1;
+        }
+        .logo-salon {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid white;
+            object-fit: cover;
+            object-position: center;
+            position: absolute;
+            bottom: -75px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            z-index: 10;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+        .contenido {
+            padding: 95px 25px 40px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .nombre-img {
+            max-width: 280px;
+            width: 90%;
+            height: auto;
+            margin: 10px auto 15px;
+            display: block;
+        }
+
+        .subtitulo {
+            font-size: 20px;
+            color: #444;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .edad {
+            font-size: 30px;
+            color: #ee1c25;
+            font-weight: 800;
+            margin-bottom: 20px;
+            letter-spacing: -0.5px;
+        }
+        .fecha {
+            font-size: 21px;
+            line-height: 1.5;
+            color: #333;
+            margin: 25px 0;
+            font-weight: 500;
+        }
+        .fecha strong { 
+            color: #000; 
+            font-weight: 800;
+            border-bottom: 3px solid #FBBF16; 
+        }
+
+        .titulo-seccion {
+            font-size: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #999;
+            letter-spacing: 2px;
+            margin-top: 40px;
+        }
+
+        .contador, .botones {
+            display: flex;
+            justify-content: space-between;
+            margin: 25px 0 45px;
+            gap: 12px;
+            padding: 0 5px;
+        }
+
+        .botones {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            margin-top: 20px;
+        }
+
+        .caja, .boton {
+            flex: 1;
+            background: #ffffff;
+            border-radius: 18px;
+            box-shadow: 4px 4px 12px rgba(251, 191, 22, 0.25), 
+                        -4px -4px 12px rgba(255, 255, 255, 1);
+            border: 2px solid #fff;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        @keyframes vibration {
+            0% { transform: translateX(0); }
+            10% { transform: translateX(-2px) rotate(-1deg); }
+            20% { transform: translateX(2px) rotate(1deg); }
+            30% { transform: translateX(-2px) rotate(-1deg); }
+            40% { transform: translateX(2px) rotate(1deg); }
+            50% { transform: translateX(0); }
+            100% { transform: translateX(0); }
+        }
+
+        .boton {
+            animation: vibration 3s infinite ease-in-out;
+        }
+
+        .boton:nth-child(2) { animation-delay: 0.5s; }
+        .boton:nth-child(3) { animation-delay: 1s; }
+
+        .caja { padding: 15px 5px; }
+        .boton { padding: 22px 10px; color: #444; }
+
+        .boton:active {
+            box-shadow: inset 2px 2px 5px rgba(251, 191, 22, 0.3);
+            transform: scale(0.98);
+            animation: none;
+        }
+
+        .boton.full { grid-column: span 2; }
+
+        .caja span {
+            display: block;
+            font-size: 26px;
+            color: #ee1c25;
+            font-weight: 900;
+            margin-bottom: 2px;
+        }
+
+        .boton svg {
+            width: 32px;
+            height: 32px;
+            margin-bottom: 12px;
+            fill: #ee1c25;
+        }
+
+        .label, .caja small {
+            font-size: 10px;
+            color: #555;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        .salon {
+            font-size: 20px;
+            margin-bottom: 25px;
+            color: #333;
+            font-weight: 600;
+        }
+        .salon strong {
+            color: #ee1c25;
+            display: block;
+            font-size: 24px;
+            margin-top: 5px;
+            font-weight: 900;
+        }
+
+        .galeria {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 30px 0;
+        }
+        .galeria img {
+            width: 100%;
+            height: 130px;
+            object-fit: cover;
+            border-radius: 16px;
+            border: 3px solid white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .direccion {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 35px;
+            font-weight: 600;
+        }
+
+        .confirmar {
+            margin-top: 40px;
+            background: #fffafa;
+            border-radius: 20px;
+            padding: 25px 15px;
+            border: 2px solid #ffdadd;
+        }
+        .confirmar h2 {
+            margin: 0 0 8px;
+            font-size: 22px;
+            color: #ee1c25;
+            font-weight: 900;
+        }
+        .confirmar p { margin: 0; color: #555; font-size: 13px; font-weight: 600; }
+
+        .footer {
+            background: #222;
+            color: #aaa;
+            padding: 30px 20px;
+            font-size: 11px;
+            margin-top: 40px;
+            font-weight: 500;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .social-icons a {
+            color: #aaa;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .social-icons a:hover { color: #ee1c25; }
+        .social-icons svg { width: 20px; height: 20px; fill: currentColor; }
+
+        .musica {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            border: none;
+            background: #ee1c25;
+            color: white;
+            box-shadow: 0 8px 20px rgba(238, 28, 37, 0.5);
+            cursor: pointer;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: vibration 3s infinite ease-in-out;
+            animation-delay: 1.5s;
+        }
+        
+        .rotating { animation: rotate 4s linear infinite; }
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        #audio-error {
+            display: none;
+            position: fixed;
+            bottom: 90px;
+            right: 25px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 10px;
+            z-index: 100;
+        }
+    </style>
+</head>
+<body>
+
+<div class="invitacion">
+    <div class="portada">
+        <img class="logo-salon" src="https://i.postimg.cc/dtBtkpfs/foto-de-perfil-de-lionel.png" alt="Foto de Lionel">
+    </div>
+
+    <div class="contenido">
+        <img src="https://i.postimg.cc/zf4TsszK/adc29ae463661251de6309639a0dd665.png" alt="Lionel" class="nombre-img">
+        <div class="subtitulo">Mi Primer Añito</div>
+        <div class="edad">¡1 añito!</div>
+
+        <p class="fecha">
+            Te espero el día <strong>17 / 05 / 2026</strong><br>
+            <span style="font-size: 17px; color: #777; font-weight: 600;">de 19:00 a 22:30 hs</span>
+        </p>
+
+        <div class="titulo-seccion">¿Cuánto falta?</div>
+        <div class="contador">
+            <div class="caja"><span id="dias">00</span><small>Días</small></div>
+            <div class="caja"><span id="horas">00</span><small>Horas</small></div>
+            <div class="caja"><span id="minutos">00</span><small>Min</small></div>
+            <div class="caja"><span id="segundos">00</span><small>Seg</small></div>
+        </div>
+
+        <div class="salon">
+            Festejo en el salón
+            <strong>CHUCULINOS EVENTOS</strong>
+        </div>
+
+        <div class="galeria">
+            <img src="https://i.postimg.cc/d3r418QH/chuculinoseventos07.jpg" alt="Chuculinos Exterior">
+            <img src="https://i.postimg.cc/ZnpVRrYH/chuculinoseventos01.jpg" alt="Chuculinos Interior 1">
+            <img src="https://i.postimg.cc/7h0m6gPB/chuculinoseventos02.jpg" alt="Chuculinos Juegos">
+            <img src="https://i.postimg.cc/d3r418Qn/chuculinoseventos03.jpg" alt="Chuculinos Casita">
+        </div>
+
+        <div class="direccion">
+            <svg style="width:16px; height:16px; vertical-align:middle; fill:#ee1c25; margin-right:5px;" viewBox="0 0 24 24"><path d="M12,2C8.13,2,5,5.13,5,9c0,5.25,7,13,7,13s7-7.75,7-13C19,5.13,15.87,2,12,2z M12,11.5c-1.38,0-2.5-1.12-2.5-2.5s1.12-2.5,2.5-2.5s2.5,1.12,2.5,2.5S13.38,11.5,12,11.5z"/></svg>
+            Gral Mariano Acha Sur 1053,<br>
+            Villa Krause, San Juan
+        </div>
+
+        <div class="botones">
+            <a class="boton full" target="_blank" href="https://wa.link/su3y7t">
+                <svg viewBox="0 0 24 24"><path d="M22 10V6c0-1.1-.9-2-2-2H4c-1.1 0-1.99.9-1.99 2v4c1.1 0 2 .9 2 2s-.9 2-2 2v4c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-4c-1.1 0-2-.9-2-2s.9-2 2-2zm-9 7.5h-2v-2h2v2zm0-4.5h-2v-2h2v2zm0-4.5h-2v-2h2v2z"/></svg>
+                <span class="label">Confirmar Asistencia</span>
+            </a>
+            <!-- Botón de Agendar Evento actualizado con los parámetros de Google Calendar solicitados -->
+            <a class="boton" target="_blank" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Cumple+De+Lionel&dates=20260517T220000Z/20260518T013000Z&details=Te+espero+para+celebrar&location=General+Mariano+Acha+Sur+1053,+J5425+Villa+Krause+San+Juan&trp=true&reminders=60">
+                <svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg>
+                <span class="label">Agendar Evento</span>
+            </a>
+            <a class="boton" target="_blank" href="https://maps.app.goo.gl/8Ur2a2uUCEfnXkEG7">
+                <svg viewBox="0 0 24 24"><path d="M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM15 19l-6-2.11V5l6 2.11V19z"/></svg>
+                <span class="label">Cómo Llegar</span>
+            </a>
+        </div>
+
+        <div class="confirmar">
+            <h2>¡Te esperamos!</h2>
+            <p>Tu presencia es nuestro mejor regalo.<br>Por favor, confirma antes del 10/05.</p>
+        </div>
+    </div>
+
+    <div class="footer">
+        Invitacion Digital Infantil creada por Soluciones Digitales Premium<br>
+        © 2026 Eventos Infantiles
+        <div class="social-icons">
+            <a href="https://www.facebook.com/profile.php?id=61586358363345" target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2.04C6.5 2.04 2 6.53 2 12.06C2 17.06 5.66 21.21 10.44 21.96V14.96H7.9V12.06H10.44V9.85C10.44 7.34 11.93 5.96 14.22 5.96C15.31 5.96 16.45 6.15 16.45 6.15V8.62H15.19C13.95 8.62 13.56 9.39 13.56 10.18V12.06H16.34L15.89 14.96H13.56V21.96A10 10 0 0 0 22 12.06C22 6.53 17.5 2.04 12 2.04Z"/></svg></a>
+            <a href="https://www.instagram.com/solu.digitalespremium.2026/" target="_blank"><svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8A3.6 3.6 0 0 0 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6A3.6 3.6 0 0 0 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg></a>
+        </div>
+    </div>
+</div>
+
+<div id="audio-error">Error al cargar audio</div>
+
+<button class="musica" id="btn-musica" onclick="toggleMusica()">
+    <svg id="icon-music" style="width:24px; height:24px; fill:white;" viewBox="0 0 24 24">
+        <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+    </svg>
+</button>
+
+<audio id="audio-player" preload="auto">
+    <!-- Enlace de Dropbox modificado con raw=1 para reproducción directa -->
+    <source src="https://www.dropbox.com/scl/fi/m1ixsfptc23vec8azn6u2/La-Casa-de-Mickey-Mouse-Intro-Espa-ol-Latino.mp3?rlkey=t1fshpsp6961hjzall7l7mq81&st=o9193rqv&raw=1" type="audio/mpeg">
+</audio>
+
+<script>
+// Lógica del Contador
+const fechaEvento = new Date("May 17, 2026 19:00:00").getTime();
+setInterval(() => {
+    const ahora = new Date().getTime();
+    const distancia = fechaEvento - ahora;
+    if (distancia <= 0) {
+        document.querySelector(".contador").innerHTML = "<div style='font-size:18px; font-weight:800; color:#ee1c25; width:100%; letter-spacing:1px;'>🎉 ¡HOY ES EL GRAN DÍA! 🎉</div>";
+        return;
+    }
+    document.getElementById("dias").innerText = Math.floor(distancia / 86400000).toString().padStart(2, '0');
+    document.getElementById("horas").innerText = Math.floor((distancia % 86400000) / 3600000).toString().padStart(2, '0');
+    document.getElementById("minutos").innerText = Math.floor((distancia % 3600000) / 60000).toString().padStart(2, '0');
+    document.getElementById("segundos").innerText = Math.floor((distancia % 60000) / 1000).toString().padStart(2, '0');
+}, 1000);
+
+// Lógica del Reproductor Musical
+function toggleMusica() {
+    const audio = document.getElementById("audio-player");
+    const icon = document.getElementById("icon-music");
+    const btn = document.getElementById("btn-musica");
+    const errBox = document.getElementById("audio-error");
+
+    if (audio.paused) {
+        audio.play().then(() => {
+            icon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
+            btn.classList.add('rotating');
+            errBox.style.display = "none";
+        }).catch(err => {
+            console.error("Error Audio:", err);
+            errBox.style.display = "block";
+            setTimeout(() => errBox.style.display = "none", 3000);
+        });
+    } else {
+        audio.pause();
+        icon.innerHTML = '<path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>';
+        btn.classList.remove('rotating');
+    }
+}
+
+const player = document.getElementById("audio-player");
+const musicBtn = document.getElementById("btn-musica");
+const musicIcon = document.getElementById("icon-music");
+
+player.onended = () => {
+    musicBtn.classList.remove('rotating');
+    musicIcon.innerHTML = '<path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>';
+};
+</script>
+
+</body>
+</html>
